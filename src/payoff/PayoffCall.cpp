@@ -1,4 +1,4 @@
-#include "PayoffCall.hpp"
+#include "/home/onyxia/C-Project-Pricing/include/payoff/PayoffCall.hpp"
 #include <algorithm> // pour la fonction max
 
 PayoffCall::PayoffCall(double strike)

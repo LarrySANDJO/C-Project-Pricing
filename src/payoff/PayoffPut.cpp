@@ -1,4 +1,4 @@
-#include "PayoffPut.hpp"
+#include "/home/onyxia/C-Project-Pricing/include/payoff/PayoffPut.hpp"
 #include <algorithm>
 
 PayoffPut::PayoffPut(double strike)

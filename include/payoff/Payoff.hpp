@@ -8,4 +8,4 @@ public :
 
     virtual double operator()(double spot) const = 0;
     // const car la fonction ne doit pas modifier l'etat de nos objet (strike, etc.)
-}
+};
