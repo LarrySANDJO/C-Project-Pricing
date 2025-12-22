@@ -1,5 +1,5 @@
 #include "PayoffCall.hpp"
-#include <algorithm>
+#include <algorithm> // pour la fonction max
 
 PayoffCall::PayoffCall(double strike)
     : strike_(strike)
@@ -7,4 +7,5 @@ PayoffCall::PayoffCall(double strike)
 
 double PayoffCall::operator()(double spot) const {
     return std::max(spot - strike_, 0.0);
+    // On met 0.0 au lieu de 0 pour eviter les convertions inutiles
 }
