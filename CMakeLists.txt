@@ -4,6 +4,8 @@ project(pricer LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(pybind11_DIR "C:/Users/Larry/AppData/Local/Programs/Python/Python311/Lib/site-packages/pybind11/share/cmake/pybind11")
+
 # Trouve Python (interpréteur + headers + libs)
 find_package(Python REQUIRED COMPONENTS Interpreter Development)
 
