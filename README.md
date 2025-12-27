@@ -1,5 +1,5 @@
 
-# 📊 Option Pricer - Système Complet de Pricing d'Options
+# Option Pricer - Système Complet de Pricing d'Options
 
 ![C++](https://img.shields.io/badge/C++-17-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.7+-green.svg)
@@ -11,32 +11,17 @@ Création d'un programme pour déterminer le prix d’une option financière, ai
 
 ---
 
-## 📋 Table des Matières
+## Table des Matières
 
 - [Vue d'ensemble](#vue-densemble)
 - [Fonctionnalités](#fonctionnalités)
 - [Architecture](#architecture)
 - [Installation](#installation)
-  - [Prérequis](#prérequis)
-  - [Installation pas à pas](#installation-pas-à-pas)
-- [Utilisation](#utilisation)
-  - [Module C++ Python](#module-c-python)
-  - [Backend Flask](#backend-flask)
-  - [Interface Web](#interface-web)
-- [Documentation API](#documentation-api)
-- [Exemples d'utilisation](#exemples-dutilisation)
-- [Tests](#tests)
-- [Structure du projet](#structure-du-projet)
-- [Méthodologies de pricing](#méthodologies-de-pricing)
-- [Performance](#performance)
-- [Résolution de problèmes](#résolution-de-problèmes)
-- [Contribution](#contribution)
-- [Licence](#licence)
 - [Auteur](#auteur)
 
 ---
 
-## 🎯 Vue d'ensemble
+## Vue d'ensemble
 
 Ce projet implémente un système complet de pricing d'options financières combinant :
 
@@ -47,15 +32,15 @@ Ce projet implémente un système complet de pricing d'options financières comb
 
 ### Pourquoi ce projet ?
 
-- ✅ **Performance** : Calculs en C++ pour vitesse maximale
-- ✅ **Flexibilité** : Multiple méthodes de pricing (analytique, numérique, simulation)
-- ✅ **Modernité** : Interface web immersive avec graphiques interactifs
-- ✅ **Pédagogique** : Code clair et bien documenté pour l'apprentissage
-- ✅ **Production-ready** : Validation rigoureuse et gestion d'erreurs
+- **Performance** : Calculs en C++ pour vitesse maximale
+- **Flexibilité** : Multiple méthodes de pricing (analytique, numérique, simulation)
+- **Modernité** : Interface web immersive avec graphiques interactifs
+- **Pédagogique** : Code clair et bien documenté pour l'apprentissage
+- **Production-ready** : Validation rigoureuse et gestion d'erreurs
 
 ---
 
-## ⚡ Fonctionnalités
+## Fonctionnalités
 
 ### Types d'Options Supportés
 
@@ -88,15 +73,15 @@ Ce projet implémente un système complet de pricing d'options financières comb
 
 ### Fonctionnalités Avancées
 
-- 📈 **Stratégies de réplication** : Delta-hedging avec analyse P&L
-- 📊 **Analyse de sensibilité** : Graphiques de prix vs spot
-- 🎲 **Variables antithétiques** : Réduction de variance Monte Carlo et optimisation du code
-- 🌲 **Arbres avancés** : CRR, Jarrow-Rudd, Leisen-Reimer (arbres binomiaux)
-- 📉 **Intervalles de confiance** : Pour Monte-Carlo
+- **Stratégies de réplication** : Delta-hedging avec analyse P&L
+- **Analyse de sensibilité** : Graphiques de prix vs spot
+- **Variables antithétiques** : Réduction de variance Monte Carlo et optimisation du code
+- **Arbres avancés** : CRR, Jarrow-Rudd, Leisen-Reimer (arbres binomiaux)
+- **Intervalles de confiance** : Pour Monte-Carlo
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -134,7 +119,7 @@ Ce projet implémente un système complet de pricing d'options financières comb
 
 ---
 
-## 💻 Installation
+## Installation
 
 ### Prérequis
 
@@ -344,3 +329,13 @@ curl http://localhost:5000/api/health
 ```
 
 ---
+
+## Auteurs
+
+Ce projet a été conçu par :
+
+- Larry SANDJO
+- Cheihk SANOGO
+- Dunand DJAKAI
+Tous Étudiants en deuxième année à l'ENSAE Paris.
+Mail : *larrysandjo337@gmail.com*.
