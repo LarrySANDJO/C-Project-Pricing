@@ -335,7 +335,7 @@ curl http://localhost:5000/api/health
 Ce projet a été conçu par :
 
 - Larry SANDJO
-- Cheihk SANOGO
+- Cheick SANOGO
 - Dunand DJAKAI
 
 Tous Étudiants en deuxième année à l'ENSAE Paris.
