@@ -337,5 +337,7 @@ Ce projet a été conçu par :
 - Larry SANDJO
 - Cheihk SANOGO
 - Dunand DJAKAI
+
 Tous Étudiants en deuxième année à l'ENSAE Paris.
+
 Mail : *larrysandjo337@gmail.com*.
