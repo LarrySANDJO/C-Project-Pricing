@@ -1,343 +1,217 @@
+# 📊 Option Pricer - Système de Pricing Quantitatif
 
-# Option Pricer - Système Complet de Pricing d'Options
+**Système professionnel de pricing d'options financières avec moteur C++ haute performance et interface Streamlit moderne.**
 
 ![C++](https://img.shields.io/badge/C++-17-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.7+-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-
-Système professionnel de pricing d'options financières avec backend C++ haute performance et interface web React moderne.
-
-Création d'un programme pour déterminer le prix d’une option financière, ainsi que la stratégie de réplication dans le modèle de Black-Scholes Merton. Dans la plupart des cas où les formules explicites ne s’appliquent pas, on calculera ces prix par méthode de Monte-Carlo.
+![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)
 
 ---
 
-## Table des Matières
+## 🎯 Vue d'Ensemble
 
-- [Vue d'ensemble](#vue-densemble)
-- [Fonctionnalités](#fonctionnalités)
-- [Architecture](#architecture)
-- [Installation](#installation)
-- [Auteur](#auteur)
+Ce projet implémente un pricer d'options complet combinant :
+- **Moteur C++** : Calculs haute performance
+- **Binding Python** : Interface via pybind11
+- **Interface Streamlit** : Application web interactive
 
+### Fonctionnalités Principales
+
+| Catégorie | Éléments Supportés |
+|-----------|-------------------|
+| **Types d'options** | Européennes, Américaines, Asiatiques, Lookback |
+| **Méthodes** | Black-Scholes, Monte Carlo, Arbres Binomiaux, Différences Finies |
+| **Greeks** | Delta, Gamma, Vega, Theta, Rho |
 ---
 
-## Vue d'ensemble
-
-Ce projet implémente un système complet de pricing d'options financières combinant :
-
-- **Backend C++** : Calculs haute performance pour le pricing et les Greeks
-- **Binding Python** : Exposition du code C++ via **pybind11**
-- **API REST Flask** : Interface HTTP pour le pricing
-- **Interface Web React** : Interface utilisateur moderne et interactive
-
-### Pourquoi ce projet ?
-
-- **Performance** : Calculs en C++ pour vitesse maximale
-- **Flexibilité** : Multiple méthodes de pricing (analytique, numérique, simulation)
-- **Modernité** : Interface web immersive avec graphiques interactifs
-- **Pédagogique** : Code clair et bien documenté pour l'apprentissage
-- **Production-ready** : Validation rigoureuse et gestion d'erreurs
-
----
-
-## Fonctionnalités
-
-### Types d'Options Supportés
-
-| Type | Description | Méthodes disponibles |
-|------|-------------|---------------------|
-| **Européennes** | Exercice uniquement à maturité | BS, MC, Tree, FD |
-| **Américaines** | Exercice anticipé possible | Tree, FD |
-| **Asiatiques** | Moyenne arithmétique/géométrique | MC |
-| **Lookback** | Sur maximum/minimum | MC |
-| **Barrières** | Up/Down, In/Out | MC |
-| **Digitales** | Paiement binaire | MC |
-| **Power** | Payoff avec exposant | MC |
-
-### Méthodes de Pricing
-
-| Méthode | Temps | Précision | Options supportées |
-|---------|-------|-----------|-------------------|
-| **Black-Scholes** | < 1ms | Analytique | Européennes uniquement |
-| **Monte Carlo** | ~100ms | Configurable | Toutes |
-| **Arbres Binomiaux** | ~50ms | Bonne | Européennes, Américaines |
-| **Différences Finies** | ~100ms | Très bonne | Américaines |
-
-### Greeks Calculés
-
-- **Delta (Δ)** : Sensibilité au prix du sous-jacent
-- **Gamma (Γ)** : Convexité (dérivée seconde par rapport au spot)
-- **Vega (ν)** : Sensibilité à la volatilité
-- **Theta (Θ)** : Décroissance temporelle (time decay)
-- **Rho (ρ)** : Sensibilité au taux d'intérêt
-
-### Fonctionnalités Avancées
-
-- **Stratégies de réplication** : Delta-hedging avec analyse P&L
-- **Analyse de sensibilité** : Graphiques de prix vs spot
-- **Variables antithétiques** : Réduction de variance Monte Carlo et optimisation du code
-- **Arbres avancés** : CRR, Jarrow-Rudd, Leisen-Reimer (arbres binomiaux)
-- **Intervalles de confiance** : Pour Monte-Carlo
-
----
-
-## Architecture
+## 📁 Structure du Projet
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     INTERFACE WEB (React)                    │
-│  • Paramètres interactifs                                   │
-│  • Graphiques en temps réel                                 │
-│  • Affichage des Greeks                                     │
-└──────────────────────┬──────────────────────────────────────┘
-                       │ HTTP/JSON
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    API REST (Flask)                          │
-│  • Endpoints de pricing                                     │
-│  • Gestion des erreurs                                      │
-│  • Validation des paramètres                                │
-└──────────────────────┬──────────────────────────────────────┘
-                       │ Python
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│              MODULE PYTHON (pybind11)                        │
-│  • Binding C++ → Python                                     │
-│  • Conversion des types                                     │
-└──────────────────────┬──────────────────────────────────────┘
-                       │ C++
-                       ▼
-┌─────────────────────────────────────────────────────────────┐
-│                 MOTEUR DE CALCUL (C++)                       │
-│  • Black-Scholes analytique                                 │
-│  • Monte Carlo avec réduction de variance                   │
-│  • Arbres binomiaux (CRR, JR, LR)                          │
-│  • Différences finies (Crank-Nicolson)                     │
-│  • Calcul des Greeks                                        │
-└─────────────────────────────────────────────────────────────┘
+C-Project-Pricing/
+│
+├── 📄 README.md                          # Ce fichier
+├── 📄 requirements.txt                   # Dépendances Python
+├── 📄 setup.py                          # Script de compilation C++
+├── 📄 app.py                            # Interface Streamlit
+│
+├── 📂 Code Source C++ (Moteur de Calcul)
+│   ├── pricer.hpp / pricer.cpp          # Interface abstraite Pricer
+│   ├── option.hpp / option.cpp          # Classe Option
+│   ├── payoff.hpp / payoff.cpp          # Payoffs (Européens, Asiatiques, etc.)
+│   ├── option_type.hpp                  # Enum Call/Put
+│   │
+│   ├── black_scholes_pricer.*           # Pricing analytique Black-Scholes
+│   ├── monte_carlo_pricer.*             # Simulations Monte Carlo
+│   ├── binomial_tree_pricer.*           # Arbres binomiaux (CRR, JR)
+│   ├── finite_difference_pricer.*       # Différences finies (Crank-Nicolson)
+│   └── replication_strategy.*           # Stratégies de couverture
+│
+├── 📂 Binding Python
+│   └── bindings.cpp                     # Exposition C++ → Python (pybind11)
+│
+└── 📂 Fichiers Générés (après compilation)
+    ├── build/                           # Fichiers intermédiaires
+    └── option_pricer_cpp.*.so           # Module Python compilé
 ```
+
+### 🔍 Description des Composants
+
+#### 1️⃣ **Couche C++ (Calculs)**
+
+**Classes de Base :**
+- `Pricer` : Interface abstraite définissant `price()`, `delta()`, `gamma()`, etc.
+- `Option` : Contient maturité + payoff
+- `Payoff` : Classe polymorphe pour différents types d'options
+
+**Pricers Implémentés :**
+```cpp
+BlackScholesPricer       // Formule fermée pour options européennes
+MonteCarloPricer         // Simulations pour options path-dependent
+BinomialTreePricer       // Arbres pour options américaines
+FiniteDifferenceAmericanPricer  // PDE pour options américaines
+```
+
+**Payoffs Disponibles :**
+```cpp
+Payoff                   // Européen Call/Put
+AsianCallPayoff          // Moyenne arithmétique
+AsianGeometricCallPayoff // Moyenne géométrique
+LookbackCallPayoff       // Maximum du chemin
+BarrierUpOutCallPayoff   // Barrière désactivante
+// ... et plus
+```
+
+#### 2️⃣ **Binding Python (bindings.cpp)**
+
+Expose toutes les classes C++ à Python via pybind11 :
+```python
+import option_pricer_cpp as opc
+
+# Créer une option
+payoff = opc.create_payoff(opc.PayoffStyle.European, opc.OptionType.Call, 100.0)
+option = opc.Option(1.0, payoff)
+
+# Pricer
+pricer = opc.BlackScholesPricer(option, 100.0, 0.05, 0.05, 0.20)
+price = pricer.price()
+```
+
+#### 3️⃣ **Interface Streamlit (app.py)**
+
+Application web interactive avec :
+- Panneau de configuration (sidebar)
+- Affichage prix + Greeks
+- Graphiques de sensibilité (Plotly)
+- Tableau de données interactif
 
 ---
 
-## Installation
+## 🚀 Installation et Utilisation
 
 ### Prérequis
 
-#### Système d'exploitation
-- **Linux** : Ubuntu 20.04+, Debian 11+, CentOS 8+
-- **macOS** : 10.15+ (Catalina ou supérieur)
-- **Windows** : 10/11 avec WSL2 ou MinGW
-
-#### Logiciels requis
-
-| Logiciel | Version minimale | Commande de vérification |
-|----------|------------------|-------------------------|
-| **Python** | 3.7+ | `python --version` |
-| **pip** | 20.0+ | `pip --version` |
-| **g++** ou **clang++** | Support C++17 | `g++ --version` |
-| **git** | 2.0+ | `git --version` |
-
-#### Installation des dépendances système
-
-**Ubuntu/Debian :**
-```bash
-sudo apt update
-sudo apt install -y python3 python3-pip python3-dev build-essential git
-```
-
-**macOS :**
-```bash
-# Installer Homebrew si nécessaire
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Installer les outils
-brew install python gcc git
-```
-
-**Windows (WSL2) :**
-```powershell
-# Installer WSL2 et Ubuntu depuis le Microsoft Store
-wsl --install
-
-# Puis dans le terminal Ubuntu :
-sudo apt update
-sudo apt install -y python3 python3-pip python3-dev build-essential git
-```
+- **Python** 3.7 ou supérieur
+- **Compilateur C++** supportant C++17 (g++, clang++, MSVC)
 
 ---
 
-### Installation
+### Installation Rapide (5 minutes)
 
 #### Étape 1 : Cloner le projet
 
 ```bash
-# Cloner le dépôt
-git clone https://github.com/votre-username/option-pricer.git
-cd option-pricer
-
-# Vérifier que tous les fichiers sont présents
-ls -la *.cpp *.hpp
+git clone https://github.com/LarrySANDJO/C-Project-Pricing/tree/main
 ```
 
-**Fichiers attendus :**
-```
-bindings.cpp
-pricer.cpp
-pricer.hpp
-payoff.cpp
-payoff.hpp
-option.cpp
-option.hpp
-option_type.hpp
-black_scholes_pricer.cpp
-black_scholes_pricer.hpp
-monte_carlo_pricer.cpp
-monte_carlo_pricer.hpp
-binomial_tree_pricer.cpp
-binomial_tree_pricer.hpp
-finite_difference_pricer.cpp
-finite_difference_pricer.hpp
-replication_strategy.cpp
-replication_strategy.hpp
-setup.py
-backend.py
-```
-
-#### Étape 2 : Créer un environnement virtuel (facultatif mais recommandé)
+#### Étape 2 : Créer l'environnement virtuel
 
 ```bash
-# Créer l'environnement virtuel
-python3 -m venv venv
+# Créer l'environnement
+python -m venv venv
 
 # Activer l'environnement
 # Linux/macOS :
 source venv/bin/activate
 
-# Windows (WSL) :
-source venv/bin/activate
-
-# Windows (PowerShell) :
-.\venv\Scripts\Activate.ps1
+# Windows :
+source venv\Scripts\activate
 ```
 
-#### Étape 3 : Installer les dépendances Python
+#### Étape 3 : Installer les dépendances
 
 ```bash
-# Mettre à jour pip
-pip install --upgrade pip
+# Installer depuis requirements.txt
+pip install -r requirements.txt
 
-# Installer les dépendances
-pip install pybind11 flask flask-cors numpy
-
-# Vérifier l'installation
-pip list | grep -E "pybind11|flask|numpy"
-
-```
-**Sortie attendue :**
-```
-Flask            3.0.0
-Flask-Cors       4.0.0
-numpy            1.24.3
-pybind11         2.11.1
-```
 
 #### Étape 4 : Compiler le module C++
 
 ```bash
-# Nettoyer les compilations précédentes (important)
-rm -rf build/
-rm -f option_pricer_cpp*.so option_pricer_cpp*.pyd
-
-# Compiler le module
+# Compilation
 python setup.py build_ext --inplace
-```
 
-**Sortie attendue :**
-```
-======================================================================
-COMPILATION DU MODULE OPTION_PRICER_CPP
-======================================================================
 
-Vérification des fichiers sources:
-----------------------------------------------------------------------
-✓ bindings.cpp                      [TROUVÉ]
-✓ pricer.cpp                        [TROUVÉ]
-✓ payoff.cpp                        [TROUVÉ]
-✓ option.cpp                        [TROUVÉ]
-✓ black_scholes_pricer.cpp          [TROUVÉ]
-✓ monte_carlo_pricer.cpp            [TROUVÉ]
-✓ binomial_tree_pricer.cpp          [TROUVÉ]
-✓ finite_difference_pricer.cpp      [TROUVÉ]
-✓ replication_strategy.cpp          [TROUVÉ]
-----------------------------------------------------------------------
-Fichiers trouvés: 9/9
-
-building 'option_pricer_cpp' extension
-...
-copying build/lib.*/option_pricer_cpp*.so -> .
-```
-
-**Vérification :**
-```bash
-# Le fichier .so (Linux/Mac) ou .pyd (Windows) doit exister
-ls -lh option_pricer_cpp*.so
-# ou
-ls -lh option_pricer_cpp*.pyd
-```
-
-#### Étape 5 : Tester le module
+#### Étape 6 : Lancer l'application
 
 ```bash
-# Test rapide
-python -c "import option_pricer_cpp as opc; print('✓ Module chargé avec succès')"
+# Démarrer Streamlit
+streamlit run app.py
 
-# Test complet
-python test_simple.py
+# L'application s'ouvre automatiquement dans le navigateur
+# URL : http://localhost:8501
+```
+---
+
+## 📚 Architecture Détaillée
+
+### Hiérarchie des Classes
+
+```
+Pricer (Interface abstraite)
+├── BlackScholesPricer        (Formule fermée)
+├── MonteCarloPricer          (Simulations)
+├── BinomialTreePricer        (Arbre récursif)
+└── FiniteDifferenceAmericanPricer (PDE)
+
+Payoff (Base polymorphe)
+├── Payoff                    (Européen standard)
+├── AsianCallPayoff           (Path-dependent)
+├── LookbackCallPayoff        (Extrémum)
+├── BarrierUpOutCallPayoff    (Avec barrière)
+└── ...
+
+Option
+└── Contient : Maturité + shared_ptr<Payoff>
 ```
 
-#### Étape 6 : Lancer le backend Flask
+### Flux de Calcul
 
-```bash
-# Lancer le serveur
-python backend.py
 ```
-
-#### Étape 7 : Accéder à l'interface web
-
-Ouvrez un **nouveau terminal** et testez l'API :
-
-```bash
-# Test de santé
-curl http://localhost:5000/api/health
-
-# Sortie attendue :
-# {"message":"Backend operational","status":"ok"}
-```
-
-**Pour accéder à l'interface graphique :**
-
-1. L'interface React est disponible dans l'artefact Claude ci-dessus
-2. Ouvrez votre navigateur sur la page Claude
-3. L'interface se connecte automatiquement à `http://localhost:5000`
-
-**Ou** pour un déploiement local complet :
-
-```bash
-# Dans un nouveau terminal
-# (l'interface sera disponible sur http://localhost:3000)
-# Instructions dans la section "Déploiement Production" ci-dessous
+1. Utilisateur configure paramètres (Streamlit)
+         ↓
+2. app.py appelle option_pricer_cpp (Python)
+         ↓
+3. pybind11 transmet à C++ (bindings.cpp)
+         ↓
+4. Moteur C++ effectue calculs
+         ↓
+5. Résultats retournés à Python
+         ↓
+6. Streamlit affiche résultats + graphiques
 ```
 
 ---
 
-## Auteurs
+## 📜 Licence
 
-Ce projet a été conçu par :
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-- Larry SANDJO
-- Cheihk SANOGO
-- Dunand DJAKAI
+---
 
-Tous Étudiants en deuxième année à l'ENSAE Paris.
+## 👨‍💻 Auteur
 
-Mail : *larrysandjo337@gmail.com*.
+- **Larry SANDJO**
+- **Cheick SANOGO**
+- **Dunand DJAKAI**
+
+Email: *larrysandjo337@gmail.com*
