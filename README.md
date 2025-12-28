@@ -1,6 +1,6 @@
 # 📊 Option Pricer - Système de Pricing Quantitatif
 
-**Système professionnel de pricing d'options financières avec moteur C++ haute performance et interface Streamlit moderne.**
+**Système de pricing d'options financières avec moteur C++ haute performance et interface Streamlit moderne.**
 
 ![C++](https://img.shields.io/badge/C++-17-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.7+-green.svg)
