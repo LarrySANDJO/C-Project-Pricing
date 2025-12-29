@@ -285,6 +285,13 @@ double PowerCallPayoff::operator()(const std::vector<double>& path) const
     return 0.0;
 }
 
+PowerPutPayoff::PowerPutPayoff(double strike, double power)
+    : Payoff(strike, OptionType::Put), power_(power)
+{
+    if (power <= 0.0)
+        throw std::invalid_argument("Power must be positive");
+}
+
 double PowerPutPayoff::operator()(const std::vector<double>& path) const
 {
     double S_T = path.back();
