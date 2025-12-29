@@ -76,6 +76,9 @@ double AsianGeometricCallPayoff::operator()(const std::vector<double>& path) con
     return std::max(geometric_mean - strike(), 0.0);
 }
 
+AsianGeometricPutPayoff::AsianGeometricPutPayoff(double strike)
+    : Payoff(strike, OptionType::Put) {}
+
 double AsianGeometricPutPayoff::operator()(const std::vector<double>& path) const
 {
     double log_sum = 0.0;
