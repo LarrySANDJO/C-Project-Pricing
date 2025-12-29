@@ -64,7 +64,7 @@ AsianGeometricCallPayoff::AsianGeometricCallPayoff(double strike)
 
 double AsianGeometricCallPayoff::operator()(const std::vector<double>& path) const
 {
-    // Moyenne géométrique : (∏ S_i)^(1/n)
+    // Moyenne géométrique 
     double log_sum = 0.0;
     for (double s : path)
     {
@@ -332,7 +332,7 @@ std::shared_ptr<Payoff> PayoffFactory::create(
         if (type == OptionType::Call)
             return std::make_shared<AsianGeometricCallPayoff>(strike);
         else
-            throw std::invalid_argument("Geometric Asian Put not implemented");
+            return std::make_shared<AsianGeometricPutPayoff>(strike);
 
     case PayoffStyle::Lookback:
         if (type == OptionType::Call)
@@ -349,7 +349,7 @@ std::shared_ptr<Payoff> PayoffFactory::create(
         if (type == OptionType::Call)
             return std::make_shared<BarrierUpOutCallPayoff>(strike, param1);
         else
-            throw std::invalid_argument("Up-Out barrier only for calls");
+            return std::make_shared<BarrierUpOutPutPayoff>(strike, param1);
 
     case PayoffStyle::BarrierDownOut:
         if (param1 == 0.0)
@@ -389,7 +389,7 @@ std::shared_ptr<Payoff> PayoffFactory::create(
         if (type == OptionType::Call)
             return std::make_shared<PowerCallPayoff>(strike, param1);
         else
-            throw std::invalid_argument("Power Put not implemented");
+            return std::make_shared<PowerPutPayoff>(strike, param1);
 
     default:
         throw std::invalid_argument("Unknown payoff style");
