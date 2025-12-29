@@ -146,6 +146,9 @@ source venv/Scripts/activate
 #### Étape 3 : Installer les dépendances
 
 ```bash
+# Rassurez vous au prealable que vous etes dans le bon dossier 
+cd C-Project-Pricing
+
 # Installer depuis requirements.txt
 pip install -r requirements.txt
 
