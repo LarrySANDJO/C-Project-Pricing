@@ -19,7 +19,7 @@ BlackScholesPricer::BlackScholesPricer(const Option& option,
       cached_price_(-1.0),
       price_cached_(false)
 {
-    // AMÉLIORATION #7 : Validation des paramètres
+    // Validation des paramètres
     if (spot <= 0.0)
         throw std::invalid_argument("Spot must be positive");
     if (volatility <= 0.0)
@@ -30,7 +30,7 @@ BlackScholesPricer::BlackScholesPricer(const Option& option,
 
 double BlackScholesPricer::price() const
 {
-    // AMÉLIORATION #5 : Cache pour éviter recalculs
+    // Cache pour éviter recalculs
     if (price_cached_)
         return cached_price_;
 
@@ -62,14 +62,14 @@ double BlackScholesPricer::delta(double spot) const
     double d1 = calc_d1(spot);
     double ff = std::exp((b_ - r_) * T);
     
-    // AMÉLIORATION #2 : Correction selon le type
+    // Correction selon le type
     if (option_.payoff().type() == OptionType::Call)
         return ff * N(d1);
     else
         return ff * (N(d1) - 1.0);
 }
 
-// AMÉLIORATION #11 : Greeks analytiques
+// Greeks analytiques
 double BlackScholesPricer::gamma(double spot) const
 {
     double T = option_.maturity();

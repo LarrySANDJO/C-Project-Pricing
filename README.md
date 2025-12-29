@@ -15,6 +15,8 @@ Ce projet implémente un pricer d'options complet combinant :
 - **Binding Python** : Interface via pybind11
 - **Interface Streamlit** : Application web interactive
 
+![alt text](image.png)
+
 ### Fonctionnalités Principales
 
 | Catégorie | Éléments Supportés |
