@@ -8,11 +8,7 @@
    ARBRES BINOMIAUX - IMPLÉMENTATION
    ========================================================= */
 
-BinomialTreePricer::BinomialTreePricer(const Option& option,
-                                       double spot,
-                                       double rate,
-                                       double carry,
-                                       double volatility,
+BinomialTreePricer::BinomialTreePricer(const Option& option, double spot, double rate, double carry, double volatility,
                                        std::size_t steps,
                                        bool is_american,
                                        TreeType type)
@@ -24,7 +20,7 @@ BinomialTreePricer::BinomialTreePricer(const Option& option,
       N_(steps),
       is_american_(is_american),
       type_(type),
-      dt_(option.maturity() / static_cast<double>(steps)) // On convertit en double
+      dt_(option.maturity() / static_cast<double>(steps)) // On convertit en double a cause de la division
 {
     // Validation
     if (spot <= 0.0)
@@ -34,7 +30,7 @@ BinomialTreePricer::BinomialTreePricer(const Option& option,
     if (steps == 0)
         throw std::invalid_argument("Number of steps must be positive");
     
-    // Calculer les paramètres selon le type d'arbre
+    // Calcul des paramètres selon le type d'arbre
     compute_tree_parameters();
 }
 
@@ -55,7 +51,6 @@ void BinomialTreePricer::compute_tree_parameters()
 
 /* =========================================================
    COX-ROSS-RUBINSTEIN (CRR)
-   Standard : u = e^(σ√Δt), d = 1/u
    ========================================================= */
 void BinomialTreePricer::compute_crr_parameters()
 {
@@ -74,7 +69,6 @@ void BinomialTreePricer::compute_crr_parameters()
 
 /* =========================================================
    JARROW-RUDD (JR)
-   Matching du drift : u = e^((b-σ²/2)Δt + σ√Δt)
    ========================================================= */
 void BinomialTreePricer::compute_jr_parameters()
 {
@@ -99,14 +93,13 @@ double BinomialTreePricer::price() const
 
 double BinomialTreePricer::evaluate_tree() const
 {
-    // Vecteur pour stocker les valeurs aux nœuds
+    // Vecteur pour stocker les valeurs aux noeuds
     std::vector<double> values(N_ + 1);
     
     // Condition terminale (payoff à maturité)
     for (std::size_t i = 0; i <= N_; ++i)
     {
         // Prix du sous-jacent au nœud (i, N)
-        // S(i,N) = S₀ · u^i · d^(N-i)
         double S = S0_ * std::pow(u_, static_cast<double>(i)) 
                        * std::pow(d_, static_cast<double>(N_ - i));
         
@@ -144,7 +137,7 @@ double BinomialTreePricer::evaluate_tree() const
 }
 
 /* =========================================================
-   GREEKS PAR ARBRES BINOMIAUX
+   GREEKS PAR ARBRES BINOMIAUX (ON UTILISE DES APPROXIMATIONS)
    ========================================================= */
 
 double BinomialTreePricer::delta(double spot) const

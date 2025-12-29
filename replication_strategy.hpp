@@ -12,7 +12,7 @@ struct RebalancingPoint
 {
     double time;           // Temps t
     double spot;           // Prix du sous-jacent S_t
-    double delta;          // Position en actions Δ_t
+    double delta;          // Position en actions delta_t
     double bond;           // Position en obligations B_t
     double option_value;   // Valeur de l'option V_t
     double portfolio_value;// Valeur du portefeuille
@@ -40,7 +40,7 @@ public:
         double volatility,
         double carry,
         double maturity,
-        unsigned seed = 42) const;
+        unsigned int seed = 42) const;
 
     // Statistiques de la stratégie
     struct StrategyStats
@@ -105,5 +105,5 @@ private:
         double volatility,
         double maturity,
         std::size_t rebalancing_freq,
-        unsigned seed);
+        unsigned int seed);
 };

@@ -197,7 +197,6 @@ int main()
     print_header("PARTIE 5 : OPTIONS BARRIÈRES");
 
     double barrier_up = 130.0;
-    // double barrier_down = 80.0;
 
     // Up-and-Out Call
     auto barrierUpOut = PayoffFactory::create(
@@ -217,7 +216,7 @@ int main()
     MonteCarloPricer mcBarrierUpIn(barrierUpInOpt, S0, r, b, sigma, mc_paths, mc_steps, 42, true);
     print_price_result("Barrier Up-and-In Call (B=130)", mcBarrierUpIn.price());
 
-    // Vérification : Out + In = Vanille
+    // Vérification
     std::cout << "\nVérification : Up-Out + Up-In = " 
               << (mcBarrierUpOut.price() + mcBarrierUpIn.price())
               << " (Vanille = " << mc.price() << ")" << std::endl;
@@ -250,7 +249,7 @@ int main()
     );
     Option powerCallOpt(T, powerCall);
     MonteCarloPricer mcPower(powerCallOpt, S0, r, b, sigma, mc_paths, mc_steps, 42, true);
-    print_price_result("Power Call (α=2)", mcPower.price());
+    print_price_result("Power Call", mcPower.price());
 
     /* =================================================================
        PARTIE 8 : STRATÉGIE DE RÉPLICATION
@@ -275,7 +274,7 @@ int main()
 
     // Export vers CSV
     strategy.export_to_csv(replication_path, "replication_strategy.csv");
-    std::cout << "✓ Stratégie exportée vers 'replication_strategy.csv'" << std::endl;
+    std::cout << "Stratégie exportée vers 'replication_strategy.csv'" << std::endl;
 
     /* =================================================================
        PARTIE 9 : ANALYSE D'ERREUR DE HEDGING

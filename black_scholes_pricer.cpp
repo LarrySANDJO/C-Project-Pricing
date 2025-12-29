@@ -6,11 +6,7 @@
    BLACK-SCHOLES - IMPLÉMENTATION
    ========================================================= */
 
-BlackScholesPricer::BlackScholesPricer(const Option& option,
-                                       double spot,
-                                       double rate,
-                                       double carry,
-                                       double volatility)
+BlackScholesPricer::BlackScholesPricer(const Option& option, double spot, double rate, double carry, double volatility)
     : option_(option),
       S_(spot),
       r_(rate),
@@ -30,7 +26,7 @@ BlackScholesPricer::BlackScholesPricer(const Option& option,
 
 double BlackScholesPricer::price() const
 {
-    // Cache pour éviter recalculs
+    // Cache pour éviter recalculs pour l'application Python surtout
     if (price_cached_)
         return cached_price_;
 
@@ -62,7 +58,6 @@ double BlackScholesPricer::delta(double spot) const
     double d1 = calc_d1(spot);
     double ff = std::exp((b_ - r_) * T);
     
-    // Correction selon le type
     if (option_.payoff().type() == OptionType::Call)
         return ff * N(d1);
     else
@@ -155,7 +150,7 @@ double BlackScholesPricer::N(double x)
 
 double BlackScholesPricer::n(double x)
 {
-    // Densité normale standard : φ(x) = (1/√(2π)) * e^(-x²/2)
+    // Densité normale standard : on utilise une approximation directe de la formule
     static const double inv_sqrt_2pi = 0.3989422804014327;
     return inv_sqrt_2pi * std::exp(-0.5 * x * x);
 }

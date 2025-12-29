@@ -12,9 +12,9 @@ class FiniteDifferenceAmericanPricer : public Pricer
 public:
     enum class Scheme
     {
-        Explicit,      // Schéma explicite (simple mais instable)
-        Implicit,      // Schéma implicite (stable)
-        CrankNicolson  // Crank-Nicolson (plus précis)
+        Explicit,      // Schéma explicite 
+        Implicit,      // Schéma implicite
+        CrankNicolson  // Crank-Nicolson
     };
 
     FiniteDifferenceAmericanPricer(const Option& option,
@@ -30,7 +30,7 @@ public:
     double delta(double spot) const override;
 
 private:
-    // Schéma Crank-Nicolson pour meilleure stabilité
+    // Schéma Crank-Nicolson pour une meilleure stabilité
     double price_explicit() const;
     double price_implicit() const;
     double price_crank_nicolson() const;
@@ -46,5 +46,5 @@ private:
     double S0_, r_, b_, sigma_;
     std::size_t M_, N_;
     double Smax_;
-    Scheme scheme_;
+    Scheme scheme_; // Pour specifier le schéma numérique
 };

@@ -19,7 +19,7 @@ public:
     double price() const override;
     double delta(double spot) const override;
     
-    // Greeks analytiques (plus précis que différences finies pour ce cas)
+    // Greeks 
     double gamma(double spot) const override;
     double vega() const override;
     double theta() const override;
@@ -30,15 +30,15 @@ private:
     double calc_d2(double spot) const;
     
     // Fonction de répartition normale standard
-    static double N(double x);
+    static double N(double x); // on met en static car elle ne dépend pas de l'état de l'objet
     
     // Densité normale standard (pour gamma et vega)
-    static double n(double x);
+    static double n(double x); // on met aussi en static
 
     const Option& option_;
     double S_, r_, b_, sigma_;
     
-    // Mise en cache pour éviter les recalculs
+    // Mise en cache pour éviter les recalculs (surtout pour l'appel depuis Python)
     mutable double cached_price_;
     mutable bool price_cached_;
 };

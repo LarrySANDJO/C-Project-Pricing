@@ -13,12 +13,12 @@ public:
     virtual double delta(double spot) const = 0;
 
     // Ajout des sensibilités importantes pour la gestion du risque
-    virtual double gamma(double spot) const;  // ∂²V/∂S²
-    virtual double vega() const;              // ∂V/∂σ
-    virtual double theta() const;             // ∂V/∂t
-    virtual double rho() const;               // ∂V/∂r
+    virtual double gamma(double spot) const;  
+    virtual double vega() const;              
+    virtual double theta() const;             
+    virtual double rho() const;               
 
-    // Position en obligations pour réplication
+    // Position en obligations pour réplication (definie directement)
     double bond_position(double spot) const
     {
         return price() - delta(spot) * spot;

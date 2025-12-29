@@ -22,14 +22,14 @@ public:
                        double rate,
                        double carry,
                        double volatility,
-                       std::size_t steps,
+                       std::size_t steps, // std::size_t pour les tailles non négatives et tres grandes
                        bool is_american = false,
                        TreeType type = TreeType::CoxRossRubinstein);
 
     double price() const override;
     double delta(double spot) const override;
     
-    // AMÉLIORATION #11 : Greeks par arbres binomiaux
+    // Greeks par arbres binomiaux
     double gamma(double spot) const override;
     double theta() const override;
     

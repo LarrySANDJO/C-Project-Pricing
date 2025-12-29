@@ -30,7 +30,7 @@ public:
                      double volatility,
                      std::size_t paths,
                      std::size_t steps,
-                     unsigned seed = std::random_device{}(), // Seed paramétrable
+                     unsigned seed = std::random_device{}(), // Seed paramétrable; l random_device permet de simuler de l'aléatoire réel
                      bool use_antithetic = true);
 
     double price() const override;
@@ -47,7 +47,7 @@ public:
 
 private:
     // Simuler un path complet
-    std::vector<double> simulate_path(std::mt19937& gen) const;
+    std::vector<double> simulate_path(std::mt19937& gen) const; // On passe le générateur pour éviter de le recréer à chaque fois
     
     // Simuler un path avec des nombres aléatoires spécifiques
     std::vector<double> simulate_path_with_randoms(const std::vector<double>& randoms) const;
@@ -56,5 +56,5 @@ private:
     double S0_, r_, b_, sigma_;
     std::size_t paths_, steps_;
     unsigned seed_;
-    bool use_antithetic_;  // Variables antithétiques
+    bool use_antithetic_;  // Variables antithétiques pour réduction de variance
 };

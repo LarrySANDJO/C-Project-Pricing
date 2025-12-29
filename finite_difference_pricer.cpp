@@ -26,7 +26,7 @@ FiniteDifferenceAmericanPricer::FiniteDifferenceAmericanPricer(
       Smax_(3.0 * spot),
       scheme_(scheme)
 {
-    // AMÉLIORATION #7 : Validation
+    // Validation
     if (spot <= 0.0)
         throw std::invalid_argument("Spot must be positive");
     if (volatility <= 0.0)
@@ -95,7 +95,7 @@ double FiniteDifferenceAmericanPricer::price_explicit() const
     return (1.0 - w) * grid[i] + w * grid[i + 1];
 }
 
-// Schéma implicite (plus stable)
+// Schéma implicite
 double FiniteDifferenceAmericanPricer::price_implicit() const
 {
     double T = option_.maturity();
@@ -117,9 +117,7 @@ double FiniteDifferenceAmericanPricer::price_implicit() const
         // Construire système tridiagonal
         for (std::size_t i = 1; i < M_; ++i)
         {
-            double i_dbl = static_cast<double>(i);
-            // double S = i_dbl * dS;
-            
+            double i_dbl = static_cast<double>(i);            
             double alpha = 0.5 * dt * (sigma_ * sigma_ * i_dbl * i_dbl - b_ * i_dbl / dS);
             double beta = -dt * (sigma_ * sigma_ * i_dbl * i_dbl + r_);
             double gamma = 0.5 * dt * (sigma_ * sigma_ * i_dbl * i_dbl + b_ * i_dbl / dS);
@@ -157,7 +155,7 @@ double FiniteDifferenceAmericanPricer::price_implicit() const
     return (1.0 - w) * grid[i] + w * grid[i + 1];
 }
 
-// Crank-Nicolson (θ = 0.5, plus précis)
+// Crank-Nicolson
 double FiniteDifferenceAmericanPricer::price_crank_nicolson() const
 {
     double T = option_.maturity();
@@ -178,19 +176,17 @@ double FiniteDifferenceAmericanPricer::price_crank_nicolson() const
         // Crank-Nicolson : moyenne entre explicite et implicite
         for (std::size_t i = 1; i < M_; ++i)
         {
-            double i_dbl = static_cast<double>(i);
-            // double S = i_dbl * dS;
-            
+            double i_dbl = static_cast<double>(i);            
             double alpha = 0.25 * dt * (sigma_ * sigma_ * i_dbl * i_dbl - b_ * i_dbl / dS);
             double beta = -0.5 * dt * (sigma_ * sigma_ * i_dbl * i_dbl + r_);
             double gamma = 0.25 * dt * (sigma_ * sigma_ * i_dbl * i_dbl + b_ * i_dbl / dS);
 
-            // Partie implicite (LHS)
+            // Partie implicite 
             a[i] = -alpha;
             b[i] = 1.0 - beta;
             c[i] = -gamma;
 
-            // Partie explicite (RHS)
+            // Partie explicite
             d[i] = alpha * grid[i - 1] + (1.0 + beta) * grid[i] + gamma * grid[i + 1];
         }
 
