@@ -126,7 +126,7 @@ Application web interactive avec :
 #### Étape 1 : Cloner le projet
 
 ```bash
-git clone https://github.com/LarrySANDJO/C-Project-Pricing/tree/main
+git clone https://github.com/LarrySANDJO/C-Project-Pricing
 ```
 
 #### Étape 2 : Créer l'environnement virtuel
@@ -140,7 +140,7 @@ python -m venv venv
 source venv/bin/activate
 
 # Windows :
-source venv\Scripts\activate
+source venv/Scripts/activate
 ```
 
 #### Étape 3 : Installer les dépendances

@@ -92,7 +92,7 @@ std::vector<RebalancingPoint> ReplicationStrategy::simulate_on_path(
 
 std::vector<RebalancingPoint> ReplicationStrategy::simulate_with_brownian(
     double volatility,
-    double carry,
+    double carry,   
     double maturity,
     unsigned int seed) const
 {
