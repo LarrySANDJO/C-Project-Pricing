@@ -17,6 +17,10 @@ Ce projet implémente un pricer d'options complet combinant :
 
 ![alt text](image.png)
 
+---
+
+![alt text](image-1.png)
+
 ### Fonctionnalités Principales
 
 | Catégorie | Éléments Supportés |
