@@ -76,7 +76,6 @@ with st.sidebar.expander("ℹ️ Restrictions"):
     st.markdown("""
     **Limitations:**
     - Black-Scholes: Européennes uniquement
-    - AsianGeometric: Call uniquement
     - Lookback: Call uniquement pour certains types
     - American: Utilisez Tree ou FD
     """)
