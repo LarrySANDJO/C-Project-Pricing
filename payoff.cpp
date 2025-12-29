@@ -76,6 +76,18 @@ double AsianGeometricCallPayoff::operator()(const std::vector<double>& path) con
     return std::max(geometric_mean - strike(), 0.0);
 }
 
+double AsianGeometricPutPayoff::operator()(const std::vector<double>& path) const
+{
+    double log_sum = 0.0;
+    for (double s : path) {
+        if (s <= 0.0)
+            throw std::runtime_error("Negative or zero price in path");
+        log_sum += std::log(s);
+    }
+    double geometric_mean = std::exp(log_sum / static_cast<double>(path.size()));
+    return std::max(strike() - geometric_mean, 0.0);  // Put : K - S
+}
+
 /* =========================================================
    OPTIONS LOOKBACK
    ========================================================= */
@@ -109,6 +121,14 @@ double LookbackFloatingCallPayoff::operator()(const std::vector<double>& path) c
     return std::max(maxS - S_T, 0.0);
 }
 
+double LookbackFloatingPutPayoff::operator()(const std::vector<double>& path) const
+{
+    // Payoff : S_T - min(S_t)
+    double minS = *std::min_element(path.begin(), path.end());
+    double S_T = path.back();
+    return std::max(S_T - minS, 0.0);
+}
+
 /* =========================================================
    OPTIONS BARRIÈRES
    ========================================================= */
@@ -128,6 +148,23 @@ double BarrierUpOutCallPayoff::operator()(const std::vector<double>& path) const
             return 0.0;
 
     return payoff_spot(path.back());
+}
+
+BarrierUpOutPutPayoff::BarrierUpOutPutPayoff(double strike, double barrier)
+    : Payoff(strike, OptionType::Put), barrier_(barrier)
+{
+    if (barrier <= strike)
+        throw std::invalid_argument("Barrier must be above strike for up-and-out put");
+}
+
+double BarrierUpOutPutPayoff::operator()(const std::vector<double>& path) const
+{
+    // Si touche la barrière haute, désactivée
+    for (double s : path)
+        if (s >= barrier_)
+            return 0.0;
+    
+    return payoff_spot(path.back());  // max(K - S_T, 0)
 }
 
 BarrierDownOutPutPayoff::BarrierDownOutPutPayoff(double strike, double barrier)
@@ -243,6 +280,16 @@ double PowerCallPayoff::operator()(const std::vector<double>& path) const
     if (S_T > strike())
     {
         double intrinsic = S_T - strike();
+        return std::pow(intrinsic, power_);
+    }
+    return 0.0;
+}
+
+double PowerPutPayoff::operator()(const std::vector<double>& path) const
+{
+    double S_T = path.back();
+    if (S_T < strike()) {
+        double intrinsic = strike() - S_T;
         return std::pow(intrinsic, power_);
     }
     return 0.0;

@@ -65,6 +65,15 @@ public:
     double operator()(const std::vector<double>& path) const override;
 };
 
+// Option asiatique (moyenne géométrique) - Put
+
+class AsianGeometricPutPayoff : public Payoff
+{
+public:
+    explicit AsianGeometricPutPayoff(double strike);
+    double operator()(const std::vector<double>& path) const override;
+};
+
 // ========== OPTIONS LOOKBACK ==========
 
 // Option lookback (maximum) - Call
@@ -83,11 +92,20 @@ public:
     double operator()(const std::vector<double>& path) const override;
 };
 
-// Option lookback flottant (max - S_T)
+// Option lookback flottant (max - S_T) - Call
 class LookbackFloatingCallPayoff : public Payoff
 {
 public:
     LookbackFloatingCallPayoff();
+    double operator()(const std::vector<double>& path) const override;
+};
+
+// Option lookback flottant (S_T - min) - Put
+
+class LookbackFloatingPutPayoff : public Payoff
+{
+public:
+    LookbackFloatingPutPayoff();
     double operator()(const std::vector<double>& path) const override;
 };
 
@@ -100,6 +118,16 @@ public:
     BarrierUpOutCallPayoff(double strike, double barrier);
     double operator()(const std::vector<double>& path) const override;
 
+private:
+    double barrier_;
+};
+
+// Option barrière up-and-out - Put
+class BarrierUpOutPutPayoff : public Payoff
+{
+public:
+    BarrierUpOutPutPayoff(double strike, double barrier);
+    double operator()(const std::vector<double>& path) const override;
 private:
     double barrier_;
 };
@@ -170,6 +198,16 @@ public:
     PowerCallPayoff(double strike, double power);
     double operator()(const std::vector<double>& path) const override;
 
+private:
+    double power_;
+};
+
+// Option power put
+class PowerPutPayoff : public Payoff
+{
+public:
+    PowerPutPayoff(double strike, double power);
+    double operator()(const std::vector<double>& path) const override;
 private:
     double power_;
 };
