@@ -121,6 +121,9 @@ double LookbackFloatingCallPayoff::operator()(const std::vector<double>& path) c
     return std::max(maxS - S_T, 0.0);
 }
 
+LookbackFloatingCallPayoff::LookbackFloatingCallPayoff()
+    : Payoff(0.0, OptionType::Put) {}
+
 double LookbackFloatingPutPayoff::operator()(const std::vector<double>& path) const
 {
     // Payoff : S_T - min(S_t)
